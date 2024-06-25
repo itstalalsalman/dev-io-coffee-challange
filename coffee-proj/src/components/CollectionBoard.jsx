@@ -1,23 +1,56 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import sign from '../assets/vector.svg';
 
 const CollectionBoard = () => {
-  return (
-    <div className='bg-[#111315] w-[80%] h-[500px] absolute top-[200px] rounded-xl flex flex-col items-center justify-start'>
-        <div className='relative w-[500px] h-[300px] top-10 flex flex-col items-center justify-center text-[#FEF7EE]'>
-            <img src={sign} className='absolute top-0 right-0'/>
-            <h1 className='text-[30px] font-bold'>Our Collection</h1>
-            <p className='text-center text-[#6F757C] font-medium'>
-                Introducing our Coffee Collection, a selection of unique coffees from different 
-                roast types and origins, expertly roasted in small batches and shipped fresh weekly.
-            </p>
-            <div>
-                <button>All Products</button>
-                <button>Available Now</button>
+    const [coffeeData, setCoffeeData] = useState([]);
+
+    useEffect(() => {
+        fetch("https://raw.githubusercontent.com/devchallenges-io/web-project-ideas/main/front-end-projects/data/simple-coffee-listing-data.json")
+            .then(response => response.json())
+            .then(data => {
+                setCoffeeData(data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
+    return (
+        <div className='bg-[#111315] w-[80%] lg:h-[1000px] absolute top-[200px] rounded-xl flex flex-col items-center justify-start '>
+            <div className='relative w-[520px] h-[300px] top-10 flex flex-col items-center justify-start text-[#FEF7EE] '>
+                <h1 className='text-[30px] font-bold mt-[70px] tracking-[1px]'>Our Collection</h1>
+                <p className='md:w-[480px] md:h-[80px] text-center text-[#6F757C] font-medium sm:mb-3 sm:w-[400px] sm:h-[100px]'>
+                    Introducing our Coffee Collection, a selection of unique coffees from different 
+                    roast types and origins, expertly roasted in small batches and shipped fresh weekly.
+                </p>
+                <div className='flex items-center justify-center gap-3'>
+                    <button className='w-[120px] h-[40px] bg-[#6F757C] rounded-xl'>All Products</button>
+                    <button className='w-[120px] h-[40px] rounded-xl'>Available Now</button>
+                </div>
+                <img src={sign} className='absolute top-0 right-0 w-[255px] max-h-full object-contain'/>
+            </div>
+            <div className='w-[80%] lg:mt-[70px] md:mt-[20px] sm:mt-[50px] grid justify-items-center lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4'>
+                {coffeeData && coffeeData.length > 0 ? (
+                    coffeeData.map((coffee) => (
+                        <div key={coffee.id} className='w-[280px] h-[250px] text-white relative mb-[50px]'>
+                            {coffee.id === 1 || coffee.id === 2 ? (
+                                <div className='bg-[#F6C768] w-[70px] h-[20px] absolute top-3 left-4 rounded-xl text-[#111315] flex items-center justify-center text-[12px] font-bold'>
+                                    Popular
+                                </div>
+                            ) : null}
+                            <img src={coffee.image} className='rounded-xl w-full' alt={coffee.name} />
+                            <div className='mt-3 h-[30px] flex items-center justify-between'>
+                                <p className='h-full text-[18px] font-semibold'>{coffee.name}</p>
+                                <p className='w-[50px] h-full bg-[#BEE3CC] text-[#111315] font-bold rounded-md flex items-center justify-center text-[14px]'>{coffee.price}</p>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p className='text-[#FEF7EE]'>Loading...</p>
+                )}
             </div>
         </div>
-    </div>
-  )
-}
+    );
+};
 
-export default CollectionBoard
+export default CollectionBoard;
