@@ -39,8 +39,8 @@ const CollectionBoard = () => {
                     roast types and origins, expertly roasted in small batches and shipped fresh weekly.
                 </p>
                 <div className='flex items-center justify-center gap-3'>
-                    <button className='w-[120px] h-[40px] rounded-xl' style={{backgroundColor: isAvailable ? '#111315' : "#6F757C"}} onClick={handleAll}>All Products</button>
-                    <button className='w-[120px] h-[40px] rounded-xl' onClick={handleAvailble} style={{backgroundColor: isAvailable ? '#6F757C' : "#111315"}}>Available Now</button>
+                    <button className='w-[120px] h-[40px] rounded-xl text-[14px]' style={{backgroundColor: isAvailable ? '#111315' : "#6F757C"}} onClick={handleAll}>All Products</button>
+                    <button className='w-[120px] h-[40px] rounded-xl text-[14px]' onClick={handleAvailble} style={{backgroundColor: isAvailable ? '#6F757C' : "#111315"}}>Available Now</button>
                 </div>
                 <img src={sign} className='absolute top-0 right-0 w-[255px] max-h-full object-contain'/>
             </div>
@@ -56,7 +56,7 @@ const CollectionBoard = () => {
                             <img src={coffee.image} className='rounded-xl w-full' alt={coffee.name} />
                             <div className='mt-3 h-[30px] flex items-center justify-between'>
                                 <p className='h-full text-[18px] font-semibold'>{coffee.name}</p>
-                                <p className='w-[50px] h-full bg-[#BEE3CC] text-[#111315] font-bold rounded-md flex items-center justify-center text-[14px]'>{coffee.price}</p>
+                                <p className='w-[60px] h-[25px] bg-[#BEE3CC] text-[#111315] font-bold rounded-md flex items-center justify-center text-[14px]'>{coffee.price}</p>
                             </div>
                             <div className='flex items-center justify-between mt-2'>
                                 
@@ -64,12 +64,12 @@ const CollectionBoard = () => {
                                         <div className='flex items-center justify-center gap-1'>
                                             <img src={filledStar} alt='filled' />
                                             <p className='font-semibold'>{coffee.rating}</p>
-                                            <p className='text-[#6F757C]'>({coffee.votes} votes)</p>
+                                            <p className='text-[#6F757C] text-[14px] font-semibold'>({coffee.votes} votes)</p>
                                         </div>
                                         :
                                         <div className='flex items-center justify-center gap-1'>
                                             <img src={emptyStar} alt='empty' />
-                                            <p className='text-[#6F757C] font-semibold'>No ratings</p>
+                                            <p className='text-[#6F757C] font-semibold text-[14px]'>No ratings</p>
                                         </div>
                                     }
                                     {!coffee.available && <p className='text-[#ED735D]'>Sold Out</p>}
